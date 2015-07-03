@@ -2,6 +2,7 @@ module.exports = function(zip) {
     var express = require("express");
     var five = require("johnny-five");
     var request = require("request");
+    var schedule = require('node-schedule');
     var db = require('monk')(process.env.MONGOLAB_URI || 'localhost/weather');
     var weatherCollection = db.get('weather');
     var temp = "F";
@@ -20,10 +21,7 @@ module.exports = function(zip) {
             pins: [12, 11, 5, 4, 3, 2],
             rows: rows,
             cols: cols
-
         });
-
-
         lcd.clear();
         lcd.print("Generating Weather Report");
         //api get pulling weather info based on zip code
@@ -36,7 +34,6 @@ module.exports = function(zip) {
             var conditions = data.weather[0].description;
             toScreen(city, temp, minTemp, maxTemp, conditions);
         });
-
     });
     // weatherCollection.insert({forcast: response.body, date: respnse.body.date }); //inserts user form data into mongo db album-demo.albumCollection
     //allows us to access functions within node
@@ -69,25 +66,38 @@ module.exports = function(zip) {
             if (secondLine > messages - 1) {
                 secondLine = 0;
             }
-
         });
-        var button = new five.Button(7);
+        var button = new five.Button({
+                board: board,
+                pin: 7,
+                holdtime: 2000,
+                invert: false
+            }
+        );
+        board.repl.inject({
+            button: button
+        });
         var lbutton = new five.Button(8);
-
-
         lbutton.on("press", function() {
-        lcd.clear().print("Save Data?");
-
+            lcd.clear().print("Save Data?");
         });
-        button.on("press",function() {
-          weatherCollection.insert({city: city, temp: temp , minTemp: minTemp, maxTemp: maxTemp, conditions: conditions});
+        board.repl.inject({
+            lbutton: lbutton
         });
-
-
-
-        button.on("release", function() {
-          console.log( "Button released" );
+        button.on("press", function() {
+            weatherCollection.insert({
+                city: city,
+                temp: temp,
+                minTemp: minTemp,
+                maxTemp: maxTemp,
+                conditions: conditions,
+                date: Date()
+            });
+            lcd.clear().print("Saved");
+        });
+        button.on("hold", function() {
+            lcd.clear();
+            lcd.print(city);
         });
     }
-
 };

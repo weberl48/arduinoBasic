@@ -1,0 +1,21 @@
+extends layout
+block content
+  table
+        thead
+          tr
+            th City
+            th Temp
+            th Max Temp
+            th Min Temp
+            th Conditions
+            th Date
+        tbody
+          for w in weather
+            tr
+              td= w.city
+              td= w.temp
+              td= w.maxTemp
+              td= w.minTemp
+              td= w.conditions
+              td= w.date
+            

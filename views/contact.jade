@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form(method="post" action="/contact/email")
+  form(method="post" action="/contact")
       label(for="name") First Name:
       input(type="text" name="name"  placeholder="First Name")
       p
@@ -9,7 +9,7 @@ block content
       input(type="text" name="Last Name"  placeholder="Last Name")
       p
       label(for="message") Message
-      input(type="text" name="message")
+      input(type="text" name="body")
       p
       label(for="email") Email
       input(type="email" name="email")
