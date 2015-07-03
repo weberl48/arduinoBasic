@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  form(method="post" action="/contact/email")
+      label(for="name") First Name:
+      input(type="text" name="name"  placeholder="First Name")
+      p
+      label(for="Last Name") Last Name: 
+      input(type="text" name="Last Name"  placeholder="Last Name")
+      p
+      label(for="message") Message
+      input(type="text" name="message")
+      p
+      label(for="email") Email
+      input(type="email" name="email")
+      p
+      input(type="submit" value="contact")
