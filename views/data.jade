@@ -1,6 +1,26 @@
 extends layout
 block content
-  table
+  nav.navbar.navbar-default
+    .container-fluid
+        .navbar-header
+          a.navbar-brand(href='#') Arduino Weather
+        |     
+        div
+          ul.nav.navbar-nav
+            li
+              a(href='/') Home
+            |         
+            li.active
+              a(href='/data') Data
+            |         
+            li
+              a(href='/contact') Contact
+            |         
+            li
+              a(href='https://www.linkedin.com/in/weberle') LinkedIn
+            li
+              a(href="https://github.com/weberl48") Github
+  table(class="table table-hover")
         thead
           tr
             th City

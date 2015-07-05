@@ -5,8 +5,9 @@ var unirest = require("unirest");
 var request = require('request');
 
 var nodemailer = require("nodemailer");
+  var sendgrid  = require('sendgrid')(process.env.api_user, process.env.api_key);
 var db = require('monk')(process.env.MONGOLAB_URI || 'localhost/weather');
-var mg = require('nodemailer-mailgun-transport');
+
 var weatherCollection = db.get('weather');
 /* GET home page. */
 router.get('/data', function(req, res, next) {
@@ -34,34 +35,22 @@ router.post('/weather', function(req, res, next) {
   var zip = req.body.zip;
   // console.log(zip);
   weather(zip);
-  res.redirect('/');
+  res.render('index', {title: "Check LCD"});
 });
 
 
 router.post('/contact' , function (req,res,next) {
-  var auth = {
-  auth: {
-    api_key: 'key-6f9d35268e740f4a0fddaab4efce54a9',
-    domain: 'smtp.mailgun.org'
-  }
-};
-var nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
-nodemailerMailgun.sendMail({
-  from: req.body.email,
-  to: 'weberle48@outlook.com', // An array if you have multiple recipients.
-  subject: req.body.subject,
-  'h:Reply-To': 'reply2this@company.com',
-  //You can use "text:" to send plain-text content. It's oldschool!
-  text: req.body.body
-}, function (err, info) {
-  if (err) {
-    console.log('Error: ' + err);
-  }
-  else {
-    console.log('Response: ' + info);
-  }
+sendgrid.send({
+  to:       'weberl48@outlook.com',
+  from:     req.body.email.trim(),
+  subject:  req.body.subject,
+  text:     req.body.body
+}, function(err, json) {
+  if (err) { return console.error(err); }
+  console.log(json);
 });
+res.render('contact', {message:"Email Sent Thank You"});
 });
 
 

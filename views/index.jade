@@ -1,9 +1,32 @@
 extends layout
 block content
-
-      form(action="/weather", method="post")
-        label(for="zip")  Enter Zip Code:
-        input(type="text" name="zip")
-        input(type="submit" ) 
+  
+    nav.navbar.navbar-default
+      .container-fluid
+          .navbar-header
+            a.navbar-brand(href='#') Arduino Weather
+          |     
+          div
+            ul.nav.navbar-nav
+              li.active
+                a(href='/') Home
+              |         
+              li
+                a(href='/data') Data
+              |         
+              li
+                a(href='/contact') Contact
+              |         
+              li
+                a(href='https://www.linkedin.com/in/weberle') LinkedIn
+              li
+                a(href="https://github.com/weberl48") Github
     
-             
+           
+    div(class="col-md-8 col-md-offset-2")
+        form(action="/weather", method="post")
+            label(for="zip")  Enter Zip Code:
+            input(type="text" name="zip")
+            input(type="submit" ) 
+        
+               
