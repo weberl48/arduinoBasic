@@ -5,7 +5,7 @@ I used node.js and the johnny-five framework to interface with the arduino.
 
 #Heroku Link
 
-arduinoweatherbasic.herokuapp.com
+[ArduinoAlarm](arduinoweatherbasic.herokuapp.com)
 
 #Technologies Used
 - Node.js
