@@ -53,7 +53,7 @@ module.exports = function(zip, hour, min) {
         rule.dayOfWeek = new schedule.Range(0, 6);
 
         rule.hour = Number(hour);
-        console.log(min);
+
         rule.minute = Number(min);
 
         var j = schedule.scheduleJob(rule, function() {
