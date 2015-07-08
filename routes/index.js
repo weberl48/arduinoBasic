@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var weather = require("../weather");
+var weather = require("../lib/javascript/weather.js");
 var unirest = require("unirest");
 var request = require('request');
-var validate = require('../lib/javascript/logic.js');
-var timeInput = require('../lib/javascript/indexLogic.js');
+var validate = require('../public/javascripts/logic.js');
+var timeInput = require('../public/javascripts/indexLogic.js');
 
 var nodemailer = require("nodemailer");
 var sendgrid = require('sendgrid')(process.env.api_user, process.env.api_key);
-var db = require('monk')(process.env.MONGOLAB_URI || 'localhost/weather');
+var db = require('monk')(process.env.MONGOLAB_URI );
 
 var weatherCollection = db.get('weather');
 /* GET home page. */
