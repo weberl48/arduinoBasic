@@ -73,7 +73,7 @@ router.post('/contact', function(req, res, next) {
             text: req.body.body
         }, function(err, json) {
             if (err) {
-                return console.error(err);
+            return console.error(err);
             }
             console.log(json);
         });
